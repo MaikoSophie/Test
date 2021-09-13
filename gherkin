@@ -1,0 +1,117 @@
+TEASER
+
+Feature: Storybook visual regression
+Scenario Outline: I want to make sure component layouts Teaser do not regress over time
+
+
+Given I am on the storybook component page for <id> and <args>
+Then The screenshot should compare successful with a baseline for <id> with <selector> and <args>
+
+Examples:
+			| id                                  | args                                    | selector |
+			| contentful-teaser--basic            | layout:print-advertisement              | body     |
+			| contentful-teaser--basic            | layout:two-col-image-left               | body     |
+			| contentful-contentgrid--default     | hasDots:true;asBlock:false              | body     |
+            | contentful-contentgrid--default     | asBlock:false;columns:3                 | body     |
+            | contentful-contentgrid--default     | asBlock:false;isLand:false;columns:3    | body     |
+            | contentful-contentgrid--default     | asBlock:false;isLand:false;columns:4    | body     |
+            | contentful-contentgrid--default     | asBlock:false;columns:4                 | body     |
+            
+ 
+HEADERBOX
+
+Feature: Storybook visual regression
+Scenario Outline: I want to make sure component layout Content header does not regress over time
+
+
+Given I am on the storybook component page for <id>
+Then The screenshot should compare successful with a baseline for <id> with <selector>
+
+Examples:
+			| id                                    | selector | 
+			| /contentful-contentheaderbox--default | body     |           
+            
+Feature: Content page visual regression
+Scenario Outline: I want to make sure page layout Teaser does not regress over time
+
+Given I am on a page with <url>
+Then The page screenshot should compare successful with a baseline for <url> with <selector>
+
+		Examples:
+			| url                                                    | selector |
+			| /demo/content-elements/teaser-print-advertisement      | body     |
+            | /demo/content-elements/teaser-two-col-image-left       | body     |
+            | /demo/content-elements/grid-2-columns-with-teaser      | body     |
+            | /demo/content-elements/grid-3-columns-with-teaser      | body     |
+            | /demo/content-elements/grid-4-columns-with-teaser      | body     |
+            
+            
+CONTENT BLOCK          
+            
+Feature: Storybook visual regression
+Scenario Outline: I want to make sure component layouts Conten block do not regress over time
+
+
+Given I am on the storybook component page for <id> and <args>
+Then The screenshot should compare successful with a baseline for <id> with <selector> and <args>
+
+Examples:
+			| id                                  | args                                    | selector |
+			| contentful-contentgrid--default     |                                         | body     |
+			| contentful-contentgrid--default     | isLand:false                            | body     |
+			| contentful-contentgrid--default     | layout:two-col-image-right              | body     |
+            
+
+Feature: Content page visual regression
+Scenario Outline: I want to make sure page layout Content block does not regress over time
+
+Given I am on a page with <uri>
+Then The page screenshot should compare successful with a baseline for <uri> with <selector>
+
+		Examples:
+			| uri                                                          | selector |
+			| /demo/content-elements/content-block-two-col-image-left      | body     |
+            | /demo/content-elements/content-block-two-col-image-right     | body     |
+            
+            
+CART SHIPPING            
+            
+Feature: Display amount until free shipping on the cart page
+	Scenario: I am able to see the amount until free shipping on the cart page
+
+		Given I have <qty> products with sku <sku> in my cart
+		When I am on the cart page
+		Then I should see the price until free shipping
+
+		Examples:
+			| sku           | qty |
+			| 4251638129069 | 1   |
+			| 4251638129069 | 1   |
+
+PRICE CHANGE
+
+Feature: Price in cart increases, as the items in cart increase
+	Scenario: I am able to see the price changing, as the items in cart increase
+
+		Given I have one item of sku <sku> in my cart
+		When I am on the cart page
+        And I increase the quantity of <sku> to <qty>
+		Then I should see the price and quantity in cart summary change accordingly
+
+		Examples:
+			| sku           | qty |
+			| 0193971961620 | 2   |
+			
+
+CART SUMMARY
+Feature: Display cart summary on cart page 
+	Scenario: I am able to see a summary of cart with cost, shipping cost and number of products
+
+		Given I have <qty> products with sku <sku> in my cart
+		When I am on the cart page
+		Then I should see the cart summary with cost, shipping cost and number of products
+
+		Examples:
+			| sku           | qty |
+			| 4251638129069 | 1   |
+			| 4251638129069 | 1   |
